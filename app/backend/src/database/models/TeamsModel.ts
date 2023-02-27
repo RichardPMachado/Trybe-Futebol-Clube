@@ -15,7 +15,7 @@ Teams.init({
     type: INTEGER,
     primaryKey: true,
   },
-  clubName: {
+  teamName: {
     allowNull: false,
     type: STRING,
   },

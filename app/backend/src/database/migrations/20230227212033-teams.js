@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         allowNull: false,
         type: Sequelize.INTEGER,
-        primary: true, 
+        primaryKey: true, 
       },
       clubName: {
         allowNull: false,

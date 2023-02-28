@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { teamsRouter } from './api/routes';
+import teamsRouter from './api/routes';
 
 class App {
   public app: express.Express;

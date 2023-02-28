@@ -9,4 +9,10 @@ export default class TeamsService implements ITeamsRepository {
     const result = await this.model.findAll();
     return result;
   }
+
+  async getById(id: number): Promise<ITeam> {
+    const result = await this.model.findByPk(id);
+    if (!result) throw new Error('O time requisitado não foi encontrado');
+    return result;
+  }
 }

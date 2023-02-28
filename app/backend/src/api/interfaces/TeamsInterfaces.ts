@@ -4,5 +4,6 @@ export interface ITeam {
 }
 
 export interface ITeamsRepository {
-  getAll(): Promise<ITeam[]>
+  getAll(): Promise<ITeam[]>;
+  getById(id: number): Promise<ITeam>;
 }

@@ -3,9 +3,11 @@ import InvalidEmailOrPasswordError from '../helpers/InvalidEmailOrPasswordError'
 import { IUserRepository } from '../interfaces/UserInterfaces';
 
 export default class LoginController {
-  constructor(
-    private _service: IUserRepository,
-  ) {}
+  private _service: IUserRepository;
+
+  constructor(service: IUserRepository) {
+    this._service = service;
+  }
 
   async authLogin(request: Request, response: Response) {
     const { email, password } = request.body;

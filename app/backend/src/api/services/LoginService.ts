@@ -14,7 +14,7 @@ export default class LoginService implements IUserRepository {
     });
     if (!user) throw new InvalidEmailOrPasswordError('Invalid email or password');
 
-    const verifypass = bcryptjs.compare(password, user.password);
+    const verifypass = bcryptjs.compareSync(password, user.password);
     if (!verifypass) throw new InvalidEmailOrPasswordError('Invalid email or password');
 
     const token = this._jwtToken.createToken({

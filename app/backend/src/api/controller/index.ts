@@ -1,3 +1,4 @@
 import TeamsController from './TeamsController';
+import LoginController from './loginController';
 
-export default TeamsController;
+export { TeamsController, LoginController };

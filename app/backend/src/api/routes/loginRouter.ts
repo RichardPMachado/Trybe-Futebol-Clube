@@ -1,16 +1,16 @@
 import { Router, Response, Request } from 'express';
 import ValidateLogin from '../middleware/loginMiddleware';
-import TeamsController from '../controller';
-import TeamsService from '../services';
+import { LoginController } from '../controller';
+import { LoginService } from '../services';
 
 const router = Router();
-const teamsService = new TeamsService();
-const teamsController = new TeamsController(teamsService);
+const loginService = new LoginService();
+const loginController = new LoginController(loginService);
 
 router.post(
   '/login',
   ValidateLogin.verifyLoginData,
-  (request: Request, response: Response) => teamsController.getAll(request, response),
+  (request: Request, response: Response) => loginController.authLogin(request, response),
 );
 
 export default router;

@@ -14,6 +14,8 @@ export default class LoginController {
     if (!token) {
       throw new InvalidEmailOrPasswordError('Invalid email or password');
     }
+    console.log(token);
+
     return response.status(200).json({ token });
   }
 }

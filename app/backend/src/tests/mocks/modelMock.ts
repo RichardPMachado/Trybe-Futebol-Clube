@@ -40,4 +40,23 @@ const findByPkMock =   {
   "teamName": "Grêmio"
 }
 
+const validLogin = {
+    "email": "admin@admin.com",
+    "password": "secret_admin"
+};
+
+const noEmail = {
+    "password": "123456789"
+}
+
+const noPass = {
+    "email": "eu@gmail.com"
+}
+
+const invalidPass = {
+    "email": "eu@gmail.com",
+    "password": "123456789"
+}
+
+export {validLogin, noEmail, noPass, invalidPass}
 export { findAllMock, findByPkMock }

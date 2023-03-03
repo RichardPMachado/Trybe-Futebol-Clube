@@ -2,8 +2,9 @@ import { ModelStatic } from 'sequelize';
 import * as bcryptjs from 'bcryptjs';
 import User from '../../database/models/UserModel';
 import InvalidEmailOrPasswordError from '../helpers/InvalidEmailOrPasswordError';
-import { IUserRepository } from '../interfaces/UserInterfaces';
+import { ILogin, IRole, IUserRepository } from '../interfaces/UserInterfaces';
 import JWTToken from '../token/JWTToken';
+import TokenNotFoundError from '../helpers/TokenNoFoundError';
 
 export default class LoginService implements IUserRepository {
   protected model: ModelStatic<User> = User;
@@ -24,5 +25,12 @@ export default class LoginService implements IUserRepository {
     });
 
     return token;
+  }
+
+  async authLogin(payload: ILogin): Promise<IRole> {
+    const user = await this.model.findOne({ where: { email: payload.email } });
+    if (!user) throw new TokenNotFoundError('Token must be a valid token');
+
+    return { role: user.role };
   }
 }

@@ -12,8 +12,6 @@ export default class Auth {
 
     const payload = JWT.authToken(authorization);
 
-    if (payload instanceof Error) throw new TokenNotFoundError('Invalid token');
-
     req.body = payload;
 
     next();

@@ -11,7 +11,7 @@ const loginController = new LoginController(loginService);
 router.post(
   '/login',
   ValidateLogin.verifyLoginData,
-  (request: Request, response: Response) => loginController.authLogin(request, response),
+  (request: Request, response: Response) => loginController.getToken(request, response),
 );
 
 router.get(

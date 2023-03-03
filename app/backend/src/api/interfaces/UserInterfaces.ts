@@ -15,6 +15,11 @@ export interface IToken {
   token: string;
 }
 
+export interface IRole {
+  role: string
+}
+
 export interface IUserRepository {
   getByLogin(email: string, password: string): Promise<string>;
+  authLogin(payload: ILogin): Promise<IRole>
 }

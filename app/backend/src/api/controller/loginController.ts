@@ -22,6 +22,7 @@ export default class getToken {
 
   async authLogin(request: Request, response: Response) {
     const { payload } = request.body;
+
     const { role } = await this._service.authLogin(payload);
     return response.status(200).json({ role });
   }

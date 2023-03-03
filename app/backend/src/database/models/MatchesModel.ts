@@ -6,10 +6,10 @@ import Team from './TeamModel';
 export default class Match extends Model {
   // declare <campo>: <tipo>;
   declare readonly id: number;
-  declare homeTeanId: number;
-  declare homeTeanGoals: number;
-  declare awayTeanId: number;
-  declare awayTeanGoals: number;
+  declare homeTeamId: number;
+  declare homeTeamGoals: number;
+  declare awayTeamId: number;
+  declare awayTeamGoals: number;
   declare inProgress: boolean;
 }
 
@@ -20,9 +20,8 @@ Match.init({
     allowNull: false,
     primaryKey: true,
   },
-  homeTeanId: {
+  homeTeamId: {
     type: INTEGER,
-    field: 'home_tean_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -31,13 +30,12 @@ Match.init({
     onUpdate: 'CASCADE',
     allowNull: false,
   },
-  homeTeanGoals: {
+  homeTeamGoals: {
     allowNull: false,
     type: INTEGER,
   },
-  awayTeanId: {
+  awayTeamId: {
     type: INTEGER,
-    field: 'away_tean_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -46,7 +44,7 @@ Match.init({
     onUpdate: 'CASCADE',
     allowNull: false,
   },
-  awayTeanGoals: {
+  awayTeamGoals: {
     allowNull: false,
     type: INTEGER,
   },

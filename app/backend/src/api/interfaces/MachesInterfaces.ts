@@ -1,17 +1,17 @@
-export interface IMatches {
+export type IMatches = {
   id: number;
   homeTeamId: number;
   homeTeamGoals: number;
   awayTeamId: number;
   awayTeamGoals: number;
   inProgress: boolean;
-  homeTeam: {
+  homeTeam?: {
     teamName: string,
   };
-  awayTeam: {
+  awayTeam?: {
     teamName: string,
   };
-}
+};
 
 export interface IMatchesRepository {
   getAll(): Promise<IMatches[]>

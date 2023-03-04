@@ -13,8 +13,24 @@ export type IMatches = {
   };
 };
 
+export type IRegisterMatch = {
+  id: number,
+  homeTeamId: number,
+  homeTeamGoals: number,
+  awayTeamId: number,
+  awayTeamGoals: number,
+  inProgress: boolean,
+};
+
 export interface IMatchesRepository {
   getAll(): Promise<IMatches[]>;
   getByQuery(inProgress: boolean): Promise<IMatches[]>;
-  getFinishMatch(id: number): Promise<string>;
+  getupdateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<string>;
+  updateFinishMatch(id: number): Promise<string>;
+  createMatch(
+    homeTeamId: number,
+    awayTeamId: number,
+    homeTeamGoals: number,
+    awayTeamGoals: number,
+  ): Promise<IRegisterMatch>;
 }

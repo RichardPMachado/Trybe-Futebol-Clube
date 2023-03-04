@@ -11,7 +11,6 @@ export default class MatchesController {
   async getMatches(request: Request, response: Response) {
     const { inProgress } = request.query;
     const query = inProgress === 'true';
-    console.log(inProgress);
     const matches = inProgress
       ? await this._service.getByQuery(query as boolean)
       : await this._service.getAll();

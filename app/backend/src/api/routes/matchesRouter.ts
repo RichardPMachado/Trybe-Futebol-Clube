@@ -1,7 +1,6 @@
 import { Router, Response, Request } from 'express';
 import { MatchesController } from '../controller';
 import Auth from '../middleware/Authorization';
-// import ValidateLogin from '../middleware/loginMiddleware';
 import { MatchesService } from '../services';
 
 const router = Router();
@@ -13,7 +12,6 @@ router.get('/matches', (request: Request, response: Response) => matchesControll
 
 router.patch(
   '/matches/:id/finish',
-  // ValidateLogin.verifyLoginData,
   Auth.checkToken,
   (request: Request, response: Response) => matchesController
     .getFinishMatches(request, response),

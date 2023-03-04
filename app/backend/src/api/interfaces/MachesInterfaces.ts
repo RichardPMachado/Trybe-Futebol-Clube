@@ -14,5 +14,6 @@ export type IMatches = {
 };
 
 export interface IMatchesRepository {
-  getAll(): Promise<IMatches[]>
+  getAll(): Promise<IMatches[]>;
+  getByQuery(): Promise<IMatches[]>;
 }

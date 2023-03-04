@@ -7,6 +7,6 @@ const machesService = new MatchesService();
 const matchesController = new MatchesController(machesService);
 
 router.get('/matches', (request: Request, response: Response) => matchesController
-  .getAll(request, response));
+  .getMatches(request, response));
 
 export default router;

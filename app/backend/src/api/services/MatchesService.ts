@@ -17,9 +17,9 @@ export default class MatchesService implements IMatchesRepository {
     return matches;
   }
 
-  async getByQuery(): Promise<IMatches[]> {
+  async getByQuery(inProgress: boolean): Promise<IMatches[]> {
     const matches = await this.model.findAll({
-      where: { inProgress: true },
+      where: { inProgress },
       include: [
         { model: Team, as: 'homeTeam', attributes: { exclude: ['id'] } },
         { model: Team, as: 'awayTeam', attributes: { exclude: ['id'] } },

@@ -11,24 +11,24 @@ router.get('/matches', (request: Request, response: Response) => matchesControll
   .getMatches(request, response));
 
 router.patch(
-  '/matches/:id',
-  Auth.checkToken,
-  (request: Request, response: Response) => matchesController
-    .getupdatehMatch(request, response),
-);
-
-router.patch(
   '/matches/:id/finish',
   Auth.checkToken,
   (request: Request, response: Response) => matchesController
     .updateFinishMatches(request, response),
 );
 
+router.patch(
+  '/matches/:id',
+  Auth.checkToken,
+  (request: Request, response: Response) => matchesController
+    .getupdatehMatch(request, response),
+);
+
 router.post(
   '/matches',
   Auth.checkToken,
   (request: Request, response: Response) => matchesController
-    .createMatches(request, response),
+    .updateFinishMatches(request, response),
 );
 
 export default router;

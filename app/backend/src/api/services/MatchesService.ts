@@ -46,8 +46,11 @@ export default class MatchesService implements IMatchesRepository {
     homeTeamGoals: number,
     awayTeamGoals: number,
   ): Promise<IMatches> {
-    if (!homeTeamId || !awayTeamId) throw new NotFoundError('There is no team with such id!');
-    if (homeTeamId === awayTeamId) {
+    const homeTeam = await this.model.findByPk(homeTeamId);
+    const awayTeam = await this.model.findByPk(homeTeamId);
+
+    if (!homeTeam || !awayTeam) throw new NotFoundError('There is no team with such id!');
+    if (homeTeam === awayTeam) {
       throw new IsNoPossibleCreateError(
         'It is not possible to create a match with two equal teams',
       );
@@ -55,6 +58,6 @@ export default class MatchesService implements IMatchesRepository {
     const match = await this.model.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true,
     });
-    return match;
+    return match.dataValues;
   }
 }

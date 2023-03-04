@@ -32,7 +32,7 @@ export default class MatchesController {
   }
 
   async createMatches(request: Request, response: Response) {
-    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = request.query;
+    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = request.body;
     const match = await this._service.createMatch(
       Number(homeTeamId),
       Number(awayTeamId),

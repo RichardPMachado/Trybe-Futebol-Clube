@@ -28,7 +28,7 @@ router.post(
   '/matches',
   Auth.checkToken,
   (request: Request, response: Response) => matchesController
-    .updateFinishMatches(request, response),
+    .createMatches(request, response),
 );
 
 export default router;

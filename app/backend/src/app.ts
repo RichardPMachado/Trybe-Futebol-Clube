@@ -13,6 +13,11 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
+    this.app.use(teamsRouter);
+    this.app.use(loginRouter);
+    this.app.use(matchesRouter);
+
+    this.app.use(errorMiddleware);
   }
 
   private config():void {
@@ -25,12 +30,6 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-
-    this.app.use(teamsRouter);
-    this.app.use(loginRouter);
-    this.app.use(matchesRouter);
-
-    this.app.use(errorMiddleware);
   }
 
   public start(PORT: string | number):void {

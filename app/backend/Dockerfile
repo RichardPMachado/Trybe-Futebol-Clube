@@ -14,3 +14,7 @@ EXPOSE 3001
 ENTRYPOINT [ "npm", "run" ]
 # Dica: Leia a seção Docker e Docker-compose no README para mais informações
 CMD [ "start" ]
+
+# sudo lsof -i -P -n | grep LISTEN
+# kill 'codigo pin'
+

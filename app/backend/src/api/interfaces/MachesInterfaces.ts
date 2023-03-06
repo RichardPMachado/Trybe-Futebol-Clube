@@ -32,5 +32,5 @@ export interface IMatchesRepository {
     awayTeamId: number,
     homeTeamGoals: number,
     awayTeamGoals: number,
-  ): Promise<IRegisterMatch>;
+  ): Promise<IRegisterMatch | string>;
 }

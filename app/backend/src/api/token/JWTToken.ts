@@ -6,6 +6,7 @@ export default class JWTToken {
 
   createToken(payload: ILogin): string {
     const token = sign(payload, this.secret);
+    console.log(token);
     return token;
   }
 

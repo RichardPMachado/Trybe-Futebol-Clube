@@ -1,9 +1,9 @@
 import { Model, INTEGER, BOOLEAN } from 'sequelize';
-import Team from './TeamModel';
 import db from '.';
+import Team from './TeamModel';
 // import OtherModel from './OtherModel';
 
-export default class Match extends Model {
+class Match extends Model {
   // declare <campo>: <tipo>;
   declare readonly id: number;
   declare homeTeamId: number;
@@ -61,5 +61,7 @@ Match.init({
 
 Match.belongsTo(Team, { foreignKey: 'away_team_id', as: 'awayTeam' });
 Match.belongsTo(Team, { foreignKey: 'home_team_id', as: 'homeTeam' });
-Team.hasMany(Match, { foreignKey: 'id', as: 'matchAwayId' });
-Team.hasMany(Match, { foreignKey: 'id', as: 'matchHomeId' });
+// Team.hasMany(Match, { foreignKey: 'id', as: 'matchAwayId' });
+// Team.hasMany(Match, { foreignKey: 'id', as: 'matchHomeId' });
+
+export default Match;

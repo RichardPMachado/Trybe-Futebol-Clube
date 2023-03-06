@@ -2,8 +2,6 @@ import { ModelStatic } from 'sequelize';
 import Team from '../../database/models/TeamModel';
 import Match from '../../database/models/MatchesModel';
 import { IMatches, IMatchesRepository } from '../interfaces/MachesInterfaces';
-import IsNoPossibleCreateError from '../helpers/IsNoPossibleCreateError';
-import NotFoundError from '../helpers/NotFoundError';
 
 export default class MatchesService implements IMatchesRepository {
   protected model: ModelStatic<Match> = Match;
@@ -30,14 +28,14 @@ export default class MatchesService implements IMatchesRepository {
     return matches;
   }
 
-  async getupdateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<string> {
-    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
-    return 'Atualido com sucesso';
-  }
-
   async updateFinishMatch(id: number) {
     await this.model.update({ inProgress: false }, { where: { id } });
-    return 'Finish';
+    return 'Finished';
+  }
+
+  async getupdateMatch(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<string> {
+    await this.model.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
+    return 'Atualizado com sucesso';
   }
 
   async createMatch(
@@ -45,19 +43,16 @@ export default class MatchesService implements IMatchesRepository {
     awayTeamId: number,
     homeTeamGoals: number,
     awayTeamGoals: number,
-  ): Promise<IMatches> {
-    const homeTeam = await this.model.findByPk(homeTeamId);
-    const awayTeam = await this.model.findByPk(homeTeamId);
+  ): Promise<IMatches | string> {
+    const homeTeam = await this.model.findByPk(Number(homeTeamId));
+    const awayTeam = await this.model.findByPk(Number(homeTeamId));
+    if (!homeTeam || !awayTeam) return 'not found';
 
-    if (!homeTeam || !awayTeam) throw new NotFoundError('There is no team with such id!');
-    if (homeTeam === awayTeam) {
-      throw new IsNoPossibleCreateError(
-        'It is not possible to create a match with two equal teams',
-      );
-    }
+    if (homeTeam === awayTeam) return 'is no possible create error';
+
     const match = await this.model.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true,
     });
-    return match.dataValues;
+    return match;
   }
 }

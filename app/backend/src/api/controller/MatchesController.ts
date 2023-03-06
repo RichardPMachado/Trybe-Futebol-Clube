@@ -1,4 +1,6 @@
 import { Request, Response } from 'express';
+import IsNoPossibleCreateError from '../helpers/IsNoPossibleCreateError';
+import NotFoundError from '../helpers/NotFoundError';
 import { MatchesService } from '../services';
 
 export default class MatchesController {
@@ -33,12 +35,22 @@ export default class MatchesController {
 
   async createMatches(request: Request, response: Response) {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = request.body;
+    if (!homeTeamId || !awayTeamId || !homeTeamGoals || !awayTeamGoals) {
+      throw new NotFoundError('There is no team with such id!');
+    }
     const match = await this._service.createMatch(
-      Number(homeTeamId),
-      Number(awayTeamId),
-      Number(homeTeamGoals),
-      Number(awayTeamGoals),
+      homeTeamId,
+      awayTeamId,
+      homeTeamGoals,
+      awayTeamGoals,
     );
+
+    if (match === 'not found') throw new NotFoundError('There is no team with such id!');
+    if (match === 'is no possible create error') {
+      throw new IsNoPossibleCreateError(
+        'It is not possible to create a match with two equal teams',
+      );
+    }
     return response.status(201).json(match);
   }
 }

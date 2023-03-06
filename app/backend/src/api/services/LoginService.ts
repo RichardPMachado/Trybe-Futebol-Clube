@@ -30,7 +30,6 @@ export default class LoginService implements IUserRepository {
   async authLogin(payload: ILogin): Promise<IRole> {
     const user = await this.model.findOne({ where: { email: payload.email } });
     if (!user) throw new TokenNotFoundError('Token must be a valid token');
-    console.log(user);
     return { role: user.role };
   }
 }

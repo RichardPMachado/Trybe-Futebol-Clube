@@ -45,10 +45,11 @@ export default class MatchesService implements IMatchesRepository {
     awayTeamGoals: number,
   ): Promise<IMatches | string> {
     const homeTeam = await this.model.findByPk(Number(homeTeamId));
-    const awayTeam = await this.model.findByPk(Number(homeTeamId));
+    const awayTeam = await this.model.findByPk(Number(awayTeamId));
+    // console.log(homeTeam, awayTeam);
     if (!homeTeam || !awayTeam) return 'not found';
 
-    if (homeTeam === awayTeam) return 'is no possible create error';
+    if (homeTeamId === awayTeamId) return 'is no possible create error';
 
     const match = await this.model.create({
       homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals, inProgress: true,

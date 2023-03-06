@@ -44,6 +44,7 @@ export default class MatchesController {
       homeTeamGoals,
       awayTeamGoals,
     );
+    // console.log(match);
 
     if (match === 'not found') throw new NotFoundError('There is no team with such id!');
     if (match === 'is no possible create error') {

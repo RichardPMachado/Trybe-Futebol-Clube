@@ -1,5 +1,7 @@
+// import { ILeaderboard } from './LeaderboardInterface';
+
 export interface ITeam {
-  id?: number,
+  id: number,
   teamName: string,
 }
 

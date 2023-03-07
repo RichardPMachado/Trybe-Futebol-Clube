@@ -8,19 +8,19 @@ export default class LeaderboardService implements ILeaderboardRepository {
   protected teamService = new TeamsService();
   protected matchesService = new MatchesService();
 
-  async getALlTeams() {
+  async getAllTeams() {
     const teams = await this.teamService.getAll();
     const teamName = teams.map((e) => e.teamName);
     return teamName;
   }
 
-  async getALlMatches() {
+  async getAllMatches() {
     const matches = await this.matchesService.getByQuery(false);
     return matches;
   }
 
   async createArray() {
-    const teams = await this.getALlTeams();
+    const teams = await this.getAllTeams();
     const arrayTeams: ILeaderboard[] = [];
     teams.forEach((e) => {
       const data = { name: '',
@@ -32,7 +32,7 @@ export default class LeaderboardService implements ILeaderboardRepository {
         goalsFavor: 0,
         goalsOwn: 0,
         goalsBalance: 0,
-        efficiency: 0.00,
+        efficiency: 0,
       };
       data.name = e;
       arrayTeams.push(data);
@@ -42,7 +42,7 @@ export default class LeaderboardService implements ILeaderboardRepository {
 
   async getHomeTeamData() {
     const leaderBoardData = await this.createArray();
-    const matches = await this.getALlMatches();
+    const matches = await this.getAllMatches();
     leaderBoardData.forEach((e) => {
       matches.forEach((match) => {
         if (match.homeTeam?.teamName === e.name) {
@@ -62,7 +62,7 @@ export default class LeaderboardService implements ILeaderboardRepository {
 
   async getAwayTeamData() {
     const leaderBoardData = await this.createArray();
-    const matches = await this.getALlMatches();
+    const matches = await this.getAllMatches();
     leaderBoardData.forEach((e) => {
       matches.forEach((match) => {
         if (match.awayTeam?.teamName === e.name) {

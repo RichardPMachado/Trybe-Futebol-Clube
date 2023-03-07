@@ -19,4 +19,5 @@ router.get(
   Auth.checkToken,
   (request: Request, response: Response) => loginController.authLogin(request, response),
 );
+
 export default router;

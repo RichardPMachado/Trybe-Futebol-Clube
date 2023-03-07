@@ -1,5 +1,7 @@
 // import { IMatches } from './MachesInterfaces';
 
+import { IMatches } from './MachesInterfaces';
+
 export interface ILeaderboard {
   name: string;
   totalPoints: number;
@@ -14,11 +16,9 @@ export interface ILeaderboard {
 }
 
 export interface ILeaderboardRepository {
+  getAllTeams(): Promise<string[]>;
+  getAllMatches(): Promise<IMatches[]>;
+  createArray(): Promise<ILeaderboard[]>;
   getLeaderboardHome(): Promise<ILeaderboard[]>;
   getLeaderboardAway(): Promise<ILeaderboard[]>;
-  // getAllLeaderboard(): Promise<ILeaderboard[]>;
-  // getPointsBoard(): Promise<ILeaderboard>;
-  getALlTeams(): Promise<string[]>;
-  // getALlMatches(): Promise<IMatches[]>;
-  createArray(): Promise<ILeaderboard[]>;
 }

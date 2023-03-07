@@ -1,6 +1,7 @@
 import TeamsService from './TeamsService';
 import MatchesService from './MatchesService';
 import { ILeaderboard, ILeaderboardRepository } from '../interfaces/LeaderboardInterface';
+import calculator from '../utils/cauculator';
 // import { ITeam } from '../interfaces/TeamsInterfaces';
 
 export default class LeaderboardService implements ILeaderboardRepository {
@@ -20,11 +21,9 @@ export default class LeaderboardService implements ILeaderboardRepository {
 
   async createArray() {
     const teams = await this.getALlTeams();
-
     const arrayTeams: ILeaderboard[] = [];
     teams.forEach((e) => {
-      const data = {
-        name: '',
+      const data = { name: '',
         totalPoints: 0,
         totalGames: 0,
         totalVictories: 0,
@@ -32,6 +31,8 @@ export default class LeaderboardService implements ILeaderboardRepository {
         totalLosses: 0,
         goalsFavor: 0,
         goalsOwn: 0,
+        goalsBalance: 0,
+        efficiency: 0.00,
       };
       data.name = e;
       arrayTeams.push(data);
@@ -81,19 +82,13 @@ export default class LeaderboardService implements ILeaderboardRepository {
 
   async getLeaderboardHome() {
     const leaderBoardData = await this.getHomeTeamData();
-    leaderBoardData.forEach((e) => {
-      e.totalPoints = (e.totalVictories * 3);
-      e.totalPoints += e.totalDraws;
-    });
+    await calculator(leaderBoardData);
     return leaderBoardData;
   }
 
   async getLeaderboardAway() {
     const leaderBoardData = await this.getAwayTeamData();
-    leaderBoardData.forEach((e) => {
-      e.totalPoints = (e.totalVictories * 3);
-      e.totalPoints += e.totalDraws;
-    });
+    await calculator(leaderBoardData);
     return leaderBoardData;
   }
 

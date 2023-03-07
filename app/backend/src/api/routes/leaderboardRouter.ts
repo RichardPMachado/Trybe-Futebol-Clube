@@ -12,4 +12,7 @@ router.get('/leaderboard/home', (request: Request, response: Response) => leader
 router.get('/leaderboard/away', (request: Request, response: Response) => leaderboardController
   .getLeaderboardAway(request, response));
 
+router.get('/leaderboard', (request: Request, response: Response) => leaderboardController
+  .getAllLeaderboard(request, response));
+
 export default router;

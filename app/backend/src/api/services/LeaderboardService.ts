@@ -2,6 +2,7 @@ import TeamsService from './TeamsService';
 import MatchesService from './MatchesService';
 import { ILeaderboard, ILeaderboardRepository } from '../interfaces/LeaderboardInterface';
 import calculator from '../utils/cauculator';
+import allTeamsCalculator from '../utils/allTeamsCalculator';
 // import { ITeam } from '../interfaces/TeamsInterfaces';
 
 export default class LeaderboardService implements ILeaderboardRepository {
@@ -80,26 +81,30 @@ export default class LeaderboardService implements ILeaderboardRepository {
     return leaderBoardData;
   }
 
+  async getAllTeamsData() {
+    const leaderBoardData = await this.getHomeTeamData();
+    const matches = await this.getAllMatches();
+    allTeamsCalculator(leaderBoardData, matches);
+    return leaderBoardData;
+  }
+
   async getLeaderboardHome() {
     const leaderBoardData = await this.getHomeTeamData();
-    await calculator(leaderBoardData);
+    calculator(leaderBoardData);
     return leaderBoardData;
   }
 
   async getLeaderboardAway() {
     const leaderBoardData = await this.getAwayTeamData();
-    await calculator(leaderBoardData);
+    calculator(leaderBoardData);
     return leaderBoardData;
   }
 
-  // async getAllLeaderboard() {
-  //   const leaderBoardData = await this.getHomeTeamData();
-  //   leaderBoardData.forEach((e) => {
-  //     e.totalPoints = (e.totalVictories * 3);
-  //     e.totalPoints += e.totalDraws;
-  //   });
-  //   return leaderBoardData;
-  // }
+  async getAllLeaderboard() {
+    const leaderBoardData = await this.getAllTeamsData();
+    calculator(leaderBoardData);
+    return leaderBoardData;
+  }
 }
 // if (e.homeTeamGoals === e.awayTeamGoals) {
 //   leaderboardModel[e.homeTeam?.teamName].totalDraws += 1;

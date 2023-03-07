@@ -1,17 +1,27 @@
 import { Request, Response } from 'express';
 import { LeaderboardService } from '../services';
+import sortOrder from '../utils/sortOrder';
 
 export default class LeaderboardController {
   constructor(private _service: LeaderboardService) {}
   async getLeaderboardHome(request: Request, response: Response) {
     const leaderboard = await this._service.getLeaderboardHome();
-    console.log('oi', leaderboard);
-    return response.status(200).json(leaderboard);
+    const sortOrderTeams = sortOrder(leaderboard);
+    console.log(sortOrderTeams);
+    return response.status(200).json(sortOrderTeams);
   }
 
   async getLeaderboardAway(request: Request, response: Response) {
     const leaderboard = await this._service.getLeaderboardAway();
-    console.log(leaderboard);
-    return response.status(200).json(leaderboard);
+    const sortOrderTeams = sortOrder(leaderboard);
+    console.log(sortOrderTeams);
+    return response.status(200).json(sortOrderTeams);
+  }
+
+  async getAllLeaderboard(request: Request, response: Response) {
+    const leaderboard = await this._service.getAllLeaderboard();
+    const sortOrderTeams = sortOrder(leaderboard);
+    console.log(sortOrderTeams);
+    return response.status(200).json(sortOrderTeams);
   }
 }

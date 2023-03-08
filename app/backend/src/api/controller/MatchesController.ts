@@ -35,9 +35,6 @@ export default class MatchesController {
 
   async createMatches(request: Request, response: Response) {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = request.body;
-    if (!homeTeamId || !awayTeamId || !homeTeamGoals || !awayTeamGoals) {
-      throw new NotFoundError('There is no team with such id!');
-    }
     const match = await this._service.createMatch(
       homeTeamId,
       awayTeamId,

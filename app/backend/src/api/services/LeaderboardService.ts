@@ -33,32 +33,12 @@ export default class LeaderboardService implements ILeaderboardRepository {
         goalsFavor: 0,
         goalsOwn: 0,
         goalsBalance: 0,
-        efficiency: 0,
+        efficiency: '',
       };
       data.name = e;
       arrayTeams.push(data);
     });
     return arrayTeams;
-  }
-
-  async getHomeTeamData() {
-    const leaderBoardData = await this.createArray();
-    const matches = await this.getAllMatches();
-    leaderBoardData.forEach((e) => {
-      matches.forEach((match) => {
-        if (match.homeTeam?.teamName === e.name) {
-          e.goalsFavor += match.homeTeamGoals;
-          e.goalsOwn += match.awayTeamGoals;
-          e.totalGames += 1;
-          if (match.homeTeamGoals > match.awayTeamGoals) {
-            e.totalVictories += 1;
-          } else if (match.homeTeamGoals < match.awayTeamGoals) {
-            e.totalLosses += 1;
-          } else e.totalDraws += 1;
-        }
-      });
-    });
-    return leaderBoardData;
   }
 
   async getAwayTeamData() {
@@ -81,16 +61,36 @@ export default class LeaderboardService implements ILeaderboardRepository {
     return leaderBoardData;
   }
 
-  async getAllTeamsData() {
-    const leaderBoardData = await this.getHomeTeamData();
+  async getHomeTeamData() {
+    const leaderBoardData = await this.createArray();
     const matches = await this.getAllMatches();
-    allTeamsCalculator(leaderBoardData, matches);
+    leaderBoardData.forEach((e) => {
+      matches.forEach((match) => {
+        if (match.homeTeam?.teamName === e.name) {
+          e.goalsFavor += match.homeTeamGoals;
+          e.goalsOwn += match.awayTeamGoals;
+          e.totalGames += 1;
+          if (match.homeTeamGoals > match.awayTeamGoals) {
+            e.totalVictories += 1;
+          } else if (match.homeTeamGoals < match.awayTeamGoals) {
+            e.totalLosses += 1;
+          } else e.totalDraws += 1;
+        }
+      });
+    });
     return leaderBoardData;
   }
 
   async getLeaderboardHome() {
     const leaderBoardData = await this.getHomeTeamData();
     calculator(leaderBoardData);
+    return leaderBoardData;
+  }
+
+  async getAllTeamsData() {
+    const leaderBoardData = await this.getLeaderboardHome();
+    const matches = await this.getAllMatches();
+    allTeamsCalculator(leaderBoardData, matches);
     return leaderBoardData;
   }
 

@@ -12,6 +12,7 @@ export default class MatchesService implements IMatchesRepository {
         { model: Team, as: 'homeTeam', attributes: { exclude: ['id'] } },
         { model: Team, as: 'awayTeam', attributes: { exclude: ['id'] } },
       ],
+      attributes: { exclude: ['away_team_id', 'home_team_id'] },
     });
 
     return matches;
@@ -24,6 +25,7 @@ export default class MatchesService implements IMatchesRepository {
         { model: Team, as: 'homeTeam', attributes: { exclude: ['id'] } },
         { model: Team, as: 'awayTeam', attributes: { exclude: ['id'] } },
       ],
+      attributes: { exclude: ['away_team_id', 'home_team_id'] },
     });
     return matches;
   }

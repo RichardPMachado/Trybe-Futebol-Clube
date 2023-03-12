@@ -8,7 +8,7 @@ import TokenNotFoundError from '../helpers/TokenNoFoundError';
 
 export default class LoginService implements IUserRepository {
   protected model: ModelStatic<User> = User;
-  private _jwtToken = new JWTToken();
+  protected _jwtToken = new JWTToken();
   async getByLogin(email: string, password: string): Promise<string> {
     const user = await this.model.findOne({
       where: { email },
